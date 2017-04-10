@@ -1,5 +1,5 @@
 """
-WSGI config for storemons project.
+WSGI config for pokedex_site project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "storemons.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pokedex_site.settings")
 
 application = get_wsgi_application()
