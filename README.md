@@ -8,7 +8,7 @@ https://tutorial.djangogirls.org/en/django_start_project/
 
 
 ## Fields
-- TABLE: My_Pokemon
+- TABLE: my_pokemon
   - dex_num
   - species
   - nickname
@@ -18,7 +18,7 @@ https://tutorial.djangogirls.org/en/django_start_project/
   - type2
   - ability
   - nature
-- TABLE: National_Dex
+- TABLE: national_dex
   - dex_num
   - species
   - base_hp
@@ -39,3 +39,13 @@ https://tutorial.djangogirls.org/en/django_start_project/
 
 ## Notes for me
 http://127.0.0.1:8000/admin/ go here to add Pokemon
+
+## Process
+1. Create a virtual environment. (http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+  `virtualenv env`
+2. Install Django. Make sure you have Python 3 by running `python3 --version`
+  `pip install Django`
+3. Create project
+  `django-admin startproject pokesite`
+4. Create app
+  `python manage.py startapp pokedex`
