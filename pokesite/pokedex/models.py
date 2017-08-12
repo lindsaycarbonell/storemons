@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 
+
 #####################
 #  ABSTRACT MODELS  #
 #####################
@@ -275,7 +276,7 @@ class HasMoveTarget(models.Model):
 
 class HasName(models.Model):
 
-    name = models.CharField(max_length=100, db_index=True, default=False)
+    name = models.CharField(max_length=100, db_index=True)
 
     class Meta:
         abstract = True
@@ -1261,11 +1262,11 @@ class PokemonSpeciesFlavorText(IsFlavorText, HasPokemonSpecies, HasVersion):
 
 class Pokemon(HasName, HasPokemonSpecies, HasOrder):
 
-    height = models.IntegerField(default=0)
+    height = models.IntegerField()
 
-    weight = models.IntegerField(default=0)
+    weight = models.IntegerField()
 
-    base_experience = models.IntegerField(default=0)
+    base_experience = models.IntegerField()
 
     is_default = models.BooleanField(default=False)
 
