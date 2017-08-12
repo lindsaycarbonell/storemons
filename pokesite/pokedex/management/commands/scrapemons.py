@@ -13,12 +13,27 @@ class Command(BaseCommand):
         response = requests.get(url)
 
         if response.status_code == 200:
-            with open(filename, 'w') as outf:
-                outf.write(response.content)
+            data = json.loads(response.content)
+            for stat in data['stats']:
+                for attr, val in stat.iteritems():
 
-    query_pokeapi('pokemon-species/charizard', 'data/charizard.json')
+                    if attr == 'stat':
+                        this_stat_name = stat[attr]['name']
+                        this_base_stat = stat['base_stat']
+                        if this_stat_name == 'speed':
+                            base_speed = this_base_stat
+                        elif this_stat_name == 'special-defense':
+                            base_spdef = this_base_stat
+                        elif this_stat_name == 'special-attack':
+                            base_spatk = this_base_stat
+                        elif this_stat_name == 'defense':
+                            base_def = this_base_stat
+                        elif this_stat_name == 'attack':
+                            base_atk = this_base_stat
+                        elif this_stat_name == 'hp':
+                            base_hp = this_base_stat
+
+    query_pokeapi('pokemon/charizard', 'data/charizard.json')
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS("Charizard!"))
-
-    # print "Charizard was written to the root folder"
