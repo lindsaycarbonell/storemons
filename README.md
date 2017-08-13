@@ -49,3 +49,6 @@ http://127.0.0.1:8000/admin/ go here to add Pokemon
   `django-admin startproject pokesite`
 4. Create app
   `python manage.py startapp pokedex`
+
+## Helpful links
+https://www.twilio.com/blog/2014/11/build-your-own-pokedex-with-django-mms-and-pokeapi.html

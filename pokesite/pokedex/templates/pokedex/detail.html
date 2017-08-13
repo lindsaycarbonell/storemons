@@ -1,0 +1,9 @@
+<p>This is the detail page for {{ pokemon }}</p>
+
+<p>Learnable moves:</p>
+
+<ul>
+  {% for move in moves %}
+    <li>{{ move.name }}</li>
+  {% endfor %}
+</ul>

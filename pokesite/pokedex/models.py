@@ -934,6 +934,9 @@ class Move(
 
     move_effect_chance = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 
 class MoveName(HasMove, IsName):
     pass
@@ -1270,6 +1273,9 @@ class Pokemon(HasName, HasPokemonSpecies, HasOrder):
 
     is_default = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 
 class PokemonAbility(HasPokemon, HasAbility):
 
@@ -1400,7 +1406,6 @@ class MoveLearnMethodDescription(IsDescription, HasMoveLearnMethod):
 class PokemonMove(HasPokemon, HasMoveLearnMethod, HasVersionGroup, HasMove, HasOrder):
 
     level = models.IntegerField()
-
 
 class PokemonShape(HasName):
     pass

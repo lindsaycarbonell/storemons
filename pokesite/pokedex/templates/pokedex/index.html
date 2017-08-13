@@ -1,0 +1,7 @@
+{% if all_pokemon %}
+    {% for p in all_pokemon %}
+    <a href="{% url 'detail' p.id %}"><div>{{ p.name }}</div></a>
+    {% endfor %}
+{% else %}
+  <p>No pokemon available.</p>
+{% endif %}
