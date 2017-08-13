@@ -5,19 +5,16 @@ from django.shortcuts import get_object_or_404
 
 import json
 
+####################
+## PYTHON FILTERS ##
+####################
 @register.filter
-def get_pokemon_name(value):
-    return value.pokemon.name
-
-@register.filter
-def get_type(value):
+def get_python_type(value):
     return type(value)
 
-@register.filter
-def get_front_sprite(value):
-    str_json = json.loads(value)
-    return str_json['front_default']
-
+##########################
+## DB RETRIEVAL FILTERS ##
+##########################
 @register.filter
 def get_type1(value):
     type1 = PokemonType.objects.get(pokemon=value,slot=1)
@@ -30,3 +27,16 @@ def get_type2(value):
         return type2.type.name
     except PokemonType.DoesNotExist:
         return False
+
+########################
+## DEPRICATED FILTERS ##
+########################
+
+# @register.filter
+# def get_pokemon_name(value):
+#     return value.pokemon.name
+
+# @register.filter
+# def get_front_sprite(value):
+#     str_json = json.loads(value)
+#     return str_json['front_default']

@@ -20,20 +20,68 @@
   <p>Notes: Pokédex numbers based on National Pokédex. Pokemon gifs are from Gen V, and pngs in the info boxes are from Gen VI. Movesets are limited to moves available in Gen I. Evolutionary chains are based on Gen I/II. Displaying National Pokédex from 1 to 151. Due to unique nature of stats in Gen I, stats are based on Gen II.</p>
 </div>
 
+<!--<div class="switch-wrapper">
+  <label class="switch">
+    <input id="check_gif" type="checkbox">
+    <span class="slider round"></span>
+  </label>
+  <p>GIF Mode</p>
+</div>
+
+<div class="switch-wrapper">
+  <label class="switch">
+    <input id="check_caught" type="checkbox">
+    <span class="slider round"></span>
+  </label>
+  <p>Hide caught</p>
+</div> -->
+
+<div class="row">
+  <div class="col-lg-12 poke-select-wrapper">
+
+    <form>
+      <label>Select two Pokémon to compare:</label>
+      <select class="form-control" name="pokemon1">
+        {% for p in all_pokemon %}
+        <option value="{{ p.name }}" {% if forloop.first %} selected {% else %}{% endif %}>{{p.name|title}}</option>
+        {% endfor %}
+      </select>
+
+      <label>and</label>
+
+      <select class="form-control" name="pokemon2">
+        {% for p in all_pokemon %}
+        <option value="{{ p.name }}">{{p.name|title}}</option>
+        {% endfor %}
+      </select>
+
+      <button id="compare_btn" class="btn btn-primary" type="submit">Compare</button>
+    </form>
+  </div>
+</div>
+
+
 {% if all_pokemon %}
     {% for p in all_pokemon %}
+
       {% if forloop.first %}<div class="row">{% endif %}
         <div class="dex-box col-lg-3 col-md-6 col-sm-12">
           <a class="dex-name" href="{% url 'detail' p.id %}">{{ p.name }}</a>
-          <div class="type {{ p|get_type1 }}">
-            <p>{{ p|get_type1 }}</p>
-          </div>
-          {% if p|get_type2 %}
-          <div class="type {{ p|get_type2 }}">
-            <p>{{ p|get_type2 }}</p>
-          </div>
+          <div class="type-wrapper">
+            <div class="type {{ p|get_type1 }}">
+              <p>{{ p|get_type1 }}</p>
+            </div>
+            {% if p|get_type2 %}
+              <div class="type {{ p|get_type2 }}">
+                <p>{{ p|get_type2 }}</p>
+              </div>
+            {% endif %}
+            </div><!--/.type-wrapper-->
+          {% if gif_mode %}
+          <img class="dex-sprite" src="http://www.pokestadium.com/sprites/black-white/animated/{{ p.name }}.gif" />
+          {% else %}
+          <img class="dex-sprite {% if false %} grayscale {% endif %}" src="{{STATIC_PREFIX}}pokedex/data/sprites/pokemon/{{p.id}}.png" />
           {% endif %}
-          <img class="dex-sprite {% if p.id|divisibleby:7 %} grayscale {% endif %}}" src="{{STATIC_PREFIX}}pokedex/data/sprites/pokemon/{{p.id}}.png" />
         </div>
       {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
       {% if forloop.last %}</div>{% endif %}
@@ -47,3 +95,9 @@
 {% endif %}
 
 <footer></footer>
+
+{# <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script></script>#}
