@@ -13,17 +13,22 @@ SUB_RGX = r"\[.*?\]\{.*?\}"
 
 db_cursor = connection.cursor()
 
-imageDir = os.getcwd() + '/v2/sprites/'
+imageDir = os.getcwd() + '/data/sprites/'
+# print imageDir
 resourceImages = []
 for root, dirs, files in os.walk(imageDir):
+    # print imageDir
     for file in files:
+        # print file
         resourceImages.append(os.path.join(root.replace(imageDir, ""), file))
+print resourceImages
 
 
-mediaDir = '/media/sprites/{0}'
+mediaDir = '/data/sprites/{0}'
 
 
 def filePathOrNone(fileName):
+    # print mediaDir.format(fileName)
     return mediaDir.format(fileName) if fileName in resourceImages else None
 
 
@@ -1786,156 +1791,156 @@ class Command(BaseCommand):
 
     def build_pokemons():
 
-        clear_table(PokemonColor)
-        data = load_data('pokemon_colors.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonColor (
-                    id = int(info[0]),
-                    name = info[1]
-                )
-                model.save()
-
-
-        clear_table(PokemonColorName)
-        data = load_data('pokemon_color_names.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonColorName (
-                    pokemon_color = PokemonColor.objects.get(pk = int(info[0])),
-                    language = Language.objects.get(pk = int(info[1])),
-                    name = info[2]
-                )
-                model.save()
-
-
-        clear_table(PokemonShape)
-        data = load_data('pokemon_shapes.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonShape (
-                    id = int(info[0]),
-                    name = info[1]
-                )
-                model.save()
-
-
-        clear_table(PokemonShapeName)
-        data = load_data('pokemon_shape_prose.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonShapeName (
-                    pokemon_shape = PokemonShape.objects.get(pk = int(info[0])),
-                    language = Language.objects.get(pk = int(info[1])),
-                    name = info[2],
-                    awesome_name = info[3]
-                )
-                model.save()
-
-
-        clear_table(PokemonHabitat)
-        data = load_data('pokemon_habitats.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonHabitat (
-                    id = int(info[0]),
-                    name = info[1]
-                )
-                model.save()
-
-
-        clear_table(PokemonSpecies)
-        data = load_data('pokemon_species.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonSpecies (
-                    id = int(info[0]),
-                    name = info[1],
-                    generation = Generation.objects.get(pk = int(info[2])),
-                    evolves_from_species = None,
-                    evolution_chain = EvolutionChain.objects.get(pk = int(info[4])),
-                    pokemon_color = PokemonColor.objects.get(pk = int(info[5])),
-                    pokemon_shape = PokemonShape.objects.get(pk = int(info[6])),
-                    pokemon_habitat = PokemonHabitat.objects.get(pk = int(info[7])) if info[7] != '' else None,
-                    gender_rate = int(info[8]),
-                    capture_rate = int(info[9]),
-                    base_happiness = int(info[10]),
-                    is_baby = bool(int(info[11])),
-                    hatch_counter = int(info[12]),
-                    has_gender_differences = bool(int(info[13])),
-                    growth_rate = GrowthRate.objects.get(pk = int(info[14])),
-                    forms_switchable = bool(int(info[15])),
-                    order = int(info[16])
-                )
-                model.save()
-
-        data = load_data('pokemon_species.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                evolves = PokemonSpecies.objects.get(pk = int(info[3])) if info[3] != '' else None
-
-                if evolves:
-                    species = PokemonSpecies.objects.get(pk = int(info[0]))
-                    species.evolves_from_species = evolves
-                    species.save()
-
-
-        clear_table(PokemonSpeciesName)
-        data = load_data('pokemon_species_names.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonSpeciesName (
-                    pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
-                    language = Language.objects.get(pk = int(info[1])),
-                    name = info[2],
-                    genus = info[3]
-                )
-                model.save()
-
-
-        clear_table(PokemonSpeciesDescription)
-        data = load_data('pokemon_species_prose.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonSpeciesDescription (
-                    pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
-                    language = Language.objects.get(pk = int(info[1])),
-                    description = scrubStr(info[2])
-                )
-                model.save()
-
-
-        clear_table(PokemonSpeciesFlavorText)
-        data = load_data('pokemon_species_flavor_text.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonSpeciesFlavorText (
-                    pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
-                    version = Version.objects.get(pk = int(info[1])),
-                    language = Language.objects.get(pk = int(info[2])),
-                    flavor_text = info[3]
-                )
-                model.save()
+        # clear_table(PokemonColor)
+        # data = load_data('pokemon_colors.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonColor (
+        #             id = int(info[0]),
+        #             name = info[1]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonColorName)
+        # data = load_data('pokemon_color_names.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonColorName (
+        #             pokemon_color = PokemonColor.objects.get(pk = int(info[0])),
+        #             language = Language.objects.get(pk = int(info[1])),
+        #             name = info[2]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonShape)
+        # data = load_data('pokemon_shapes.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonShape (
+        #             id = int(info[0]),
+        #             name = info[1]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonShapeName)
+        # data = load_data('pokemon_shape_prose.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonShapeName (
+        #             pokemon_shape = PokemonShape.objects.get(pk = int(info[0])),
+        #             language = Language.objects.get(pk = int(info[1])),
+        #             name = info[2],
+        #             awesome_name = info[3]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonHabitat)
+        # data = load_data('pokemon_habitats.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonHabitat (
+        #             id = int(info[0]),
+        #             name = info[1]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonSpecies)
+        # data = load_data('pokemon_species.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonSpecies (
+        #             id = int(info[0]),
+        #             name = info[1],
+        #             generation = Generation.objects.get(pk = int(info[2])),
+        #             evolves_from_species = None,
+        #             evolution_chain = EvolutionChain.objects.get(pk = int(info[4])),
+        #             pokemon_color = PokemonColor.objects.get(pk = int(info[5])),
+        #             pokemon_shape = PokemonShape.objects.get(pk = int(info[6])),
+        #             pokemon_habitat = PokemonHabitat.objects.get(pk = int(info[7])) if info[7] != '' else None,
+        #             gender_rate = int(info[8]),
+        #             capture_rate = int(info[9]),
+        #             base_happiness = int(info[10]),
+        #             is_baby = bool(int(info[11])),
+        #             hatch_counter = int(info[12]),
+        #             has_gender_differences = bool(int(info[13])),
+        #             growth_rate = GrowthRate.objects.get(pk = int(info[14])),
+        #             forms_switchable = bool(int(info[15])),
+        #             order = int(info[16])
+        #         )
+        #         model.save()
+        #
+        # data = load_data('pokemon_species.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         evolves = PokemonSpecies.objects.get(pk = int(info[3])) if info[3] != '' else None
+        #
+        #         if evolves:
+        #             species = PokemonSpecies.objects.get(pk = int(info[0]))
+        #             species.evolves_from_species = evolves
+        #             species.save()
+        #
+        #
+        # clear_table(PokemonSpeciesName)
+        # data = load_data('pokemon_species_names.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonSpeciesName (
+        #             pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
+        #             language = Language.objects.get(pk = int(info[1])),
+        #             name = info[2],
+        #             genus = info[3]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonSpeciesDescription)
+        # data = load_data('pokemon_species_prose.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonSpeciesDescription (
+        #             pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
+        #             language = Language.objects.get(pk = int(info[1])),
+        #             description = scrubStr(info[2])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonSpeciesFlavorText)
+        # data = load_data('pokemon_species_flavor_text.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonSpeciesFlavorText (
+        #             pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
+        #             version = Version.objects.get(pk = int(info[1])),
+        #             language = Language.objects.get(pk = int(info[2])),
+        #             flavor_text = info[3]
+        #         )
+        #         model.save()
 
 
         clear_table(Pokemon)
@@ -1960,6 +1965,8 @@ class Command(BaseCommand):
                 fileName = '%s.png' % info[0]
                 pokeSprites = 'pokemon/{0}';
 
+                # print filePathOrNone('/data/sprites/pokemon/0.png')
+
                 sprites = {
                     'front_default'      : filePathOrNone(pokeSprites.format(fileName)),
                     'front_female'       : filePathOrNone(pokeSprites.format('female/'+fileName)),
@@ -1978,243 +1985,243 @@ class Command(BaseCommand):
                 )
                 imageModel.save()
 
-        clear_table(PokemonAbility)
-        data = load_data('pokemon_abilities.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonAbility (
-                    pokemon = Pokemon.objects.get(pk = int(info[0])),
-                    ability = Ability.objects.get(pk = int(info[1])),
-                    is_hidden = bool(int(info[2])),
-                    slot = int(info[3])
-                )
-                model.save()
-
-
-        clear_table(PokemonDexNumber)
-        data = load_data('pokemon_dex_numbers.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonDexNumber (
-                    pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
-                    pokedex = Pokedex.objects.get(pk = int(info[1])),
-                    pokedex_number = int(info[2])
-                )
-                model.save()
-
-
-        clear_table(PokemonEggGroup)
-        data = load_data('pokemon_egg_groups.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonEggGroup (
-                    pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
-                    egg_group = EggGroup.objects.get(pk = int(info[1]))
-                )
-                model.save()
-
-
-        clear_table(PokemonEvolution)
-        data = load_data('pokemon_evolution.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonEvolution (
-                    id = int(info[0]),
-                    evolved_species = PokemonSpecies.objects.get(pk = int(info[1])),
-                    evolution_trigger = EvolutionTrigger.objects.get(pk = int(info[2])),
-                    evolution_item = Item.objects.get(pk = int(info[3])) if info[3] != '' else None,
-                    min_level = int(info[4]) if info[4] != '' else None,
-                    gender = Gender.objects.get(pk = int(info[5])) if info[5] != '' else None,
-                    location = Location.objects.get(pk = int(info[6])) if info[6] != '' else None,
-                    held_item = Item.objects.get(pk = int(info[7])) if info[7] != '' else None,
-                    time_of_day = info[8],
-                    known_move = Move.objects.get(pk = int(info[9])) if info[9] != '' else None,
-                    known_move_type = Type.objects.get(pk = int(info[10])) if info[10] != '' else None,
-                    min_happiness = int(info[11]) if info[11] != '' else None,
-                    min_beauty = int(info[12]) if info[12] != '' else None,
-                    min_affection = int(info[13]) if info[13] != '' else None,
-                    relative_physical_stats = int(info[14]) if info[14] != '' else None,
-                    party_species = PokemonSpecies.objects.get(pk = int(info[15])) if info[15] != '' else None,
-                    party_type = Type.objects.get(pk = int(info[16])) if info[16] != '' else None,
-                    trade_species = PokemonSpecies.objects.get(pk = int(info[17])) if info[17] != '' else None,
-                    needs_overworld_rain = bool(int(info[18])),
-                    turn_upside_down = bool(int(info[19]))
-                )
-                model.save()
-
-
-        clear_table(PokemonForm)
-        clear_table(PokemonFormSprites)
-        data = load_data('pokemon_forms.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                pokemon = Pokemon.objects.get(pk = int(info[3]))
-
-                model = PokemonForm (
-                    id = int(info[0]),
-                    name = info[1],
-                    form_name = info[2],
-                    pokemon = pokemon,
-                    version_group = VersionGroup.objects.get(pk = int(info[4])),
-                    is_default = bool(int(info[5])),
-                    is_battle_only = bool(int(info[6])),
-                    is_mega = bool(int(info[7])),
-                    form_order = int(info[8]),
-                    order = int(info[9])
-                )
-                model.save()
-
-                if info[2]:
-                    if re.search(r"^mega", info[2]):
-                        fileName = '%s.png' % info[3]
-                    else:
-                        fileName = '%s-%s.png' % (getattr(pokemon, 'pokemon_species_id'), info[2])
-                else:
-                    fileName = '%s.png' % getattr(pokemon, 'pokemon_species_id')
-
-                pokeSprites = 'pokemon/{0}'
-
-                sprites = {
-                    'front_default'      : filePathOrNone(pokeSprites.format(fileName)),
-                    'front_shiny'        : filePathOrNone(pokeSprites.format('shiny/'+fileName)),
-                    'back_default'       : filePathOrNone(pokeSprites.format('back/'+fileName)),
-                    'back_shiny'         : filePathOrNone(pokeSprites.format('back/shiny/'+fileName)),
-                }
-
-                imageModel = PokemonFormSprites (
-                    id = index,
-                    pokemon_form = PokemonForm.objects.get(pk=int(info[0])),
-                    sprites = json.dumps(sprites)
-                )
-                imageModel.save()
-
-
-        clear_table(PokemonFormName)
-        data = load_data('pokemon_form_names.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonFormName (
-                    pokemon_form = PokemonForm.objects.get(pk = int(info[0])),
-                    language = Language.objects.get(pk = int(info[1])),
-                    name = info[2],
-                    pokemon_name = info[3]
-                )
-                model.save()
-
-
-        clear_table(PokemonFormGeneration)
-        data = load_data('pokemon_form_generations.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonFormGeneration (
-                    pokemon_form = PokemonForm.objects.get(pk = int(info[0])),
-                    generation = Generation.objects.get(pk = int(info[1])),
-                    game_index = int(info[2])
-                )
-                model.save()
-
-
-        clear_table(PokemonGameIndex)
-        data = load_data('pokemon_game_indices.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonGameIndex (
-                    pokemon = Pokemon.objects.get(pk = int(info[0])),
-                    version = Version.objects.get(pk = int(info[1])),
-                    game_index = int(info[2])
-                )
-                model.save()
-
-
-        clear_table(PokemonHabitatName)
-        data = load_data('pokemon_habitat_names.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonHabitatName (
-                    pokemon_habitat = PokemonHabitat.objects.get(pk = int(info[0])),
-                    language = Language.objects.get(pk = int(info[1])),
-                    name = info[2]
-                )
-                model.save()
-
-
-        clear_table(PokemonItem)
-        data = load_data('pokemon_items.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonItem (
-                    pokemon = Pokemon.objects.get(pk = int(info[0])),
-                    version = Version.objects.get(pk = int(info[1])),
-                    item = Item.objects.get(pk = int(info[2])),
-                    rarity = int(info[3])
-                )
-                model.save()
-
-
-        clear_table(PokemonMove)
-        data = load_data('pokemon_moves.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonMove (
-                    pokemon = Pokemon.objects.get(pk = int(info[0])),
-                    version_group = VersionGroup.objects.get(pk = int(info[1])),
-                    move = Move.objects.get(pk = int(info[2])),
-                    move_learn_method = MoveLearnMethod.objects.get(pk = int(info[3])),
-                    level = int(info[4]),
-                    order = int(info[5]) if info[5] != '' else None,
-                )
-                model.save()
-
-
-        clear_table(PokemonStat)
-        data = load_data('pokemon_stats.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonStat (
-                    pokemon = Pokemon.objects.get(pk = int(info[0])),
-                    stat = Stat.objects.get(pk = int(info[1])),
-                    base_stat = int(info[2]),
-                    effort = int(info[3])
-                )
-                model.save()
-
-
-        clear_table(PokemonType)
-        data = load_data('pokemon_types.csv')
-
-        for index, info in enumerate(data):
-            if index > 0:
-
-                model = PokemonType (
-                    pokemon = Pokemon.objects.get(pk = int(info[0])),
-                    type = Type.objects.get(pk = int(info[1])),
-                    slot = int(info[2])
-                )
-                model.save()
+        # clear_table(PokemonAbility)
+        # data = load_data('pokemon_abilities.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonAbility (
+        #             pokemon = Pokemon.objects.get(pk = int(info[0])),
+        #             ability = Ability.objects.get(pk = int(info[1])),
+        #             is_hidden = bool(int(info[2])),
+        #             slot = int(info[3])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonDexNumber)
+        # data = load_data('pokemon_dex_numbers.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonDexNumber (
+        #             pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
+        #             pokedex = Pokedex.objects.get(pk = int(info[1])),
+        #             pokedex_number = int(info[2])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonEggGroup)
+        # data = load_data('pokemon_egg_groups.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonEggGroup (
+        #             pokemon_species = PokemonSpecies.objects.get(pk = int(info[0])),
+        #             egg_group = EggGroup.objects.get(pk = int(info[1]))
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonEvolution)
+        # data = load_data('pokemon_evolution.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonEvolution (
+        #             id = int(info[0]),
+        #             evolved_species = PokemonSpecies.objects.get(pk = int(info[1])),
+        #             evolution_trigger = EvolutionTrigger.objects.get(pk = int(info[2])),
+        #             evolution_item = Item.objects.get(pk = int(info[3])) if info[3] != '' else None,
+        #             min_level = int(info[4]) if info[4] != '' else None,
+        #             gender = Gender.objects.get(pk = int(info[5])) if info[5] != '' else None,
+        #             location = Location.objects.get(pk = int(info[6])) if info[6] != '' else None,
+        #             held_item = Item.objects.get(pk = int(info[7])) if info[7] != '' else None,
+        #             time_of_day = info[8],
+        #             known_move = Move.objects.get(pk = int(info[9])) if info[9] != '' else None,
+        #             known_move_type = Type.objects.get(pk = int(info[10])) if info[10] != '' else None,
+        #             min_happiness = int(info[11]) if info[11] != '' else None,
+        #             min_beauty = int(info[12]) if info[12] != '' else None,
+        #             min_affection = int(info[13]) if info[13] != '' else None,
+        #             relative_physical_stats = int(info[14]) if info[14] != '' else None,
+        #             party_species = PokemonSpecies.objects.get(pk = int(info[15])) if info[15] != '' else None,
+        #             party_type = Type.objects.get(pk = int(info[16])) if info[16] != '' else None,
+        #             trade_species = PokemonSpecies.objects.get(pk = int(info[17])) if info[17] != '' else None,
+        #             needs_overworld_rain = bool(int(info[18])),
+        #             turn_upside_down = bool(int(info[19]))
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonForm)
+        # clear_table(PokemonFormSprites)
+        # data = load_data('pokemon_forms.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         pokemon = Pokemon.objects.get(pk = int(info[3]))
+        #
+        #         model = PokemonForm (
+        #             id = int(info[0]),
+        #             name = info[1],
+        #             form_name = info[2],
+        #             pokemon = pokemon,
+        #             version_group = VersionGroup.objects.get(pk = int(info[4])),
+        #             is_default = bool(int(info[5])),
+        #             is_battle_only = bool(int(info[6])),
+        #             is_mega = bool(int(info[7])),
+        #             form_order = int(info[8]),
+        #             order = int(info[9])
+        #         )
+        #         model.save()
+        #
+        #         if info[2]:
+        #             if re.search(r"^mega", info[2]):
+        #                 fileName = '%s.png' % info[3]
+        #             else:
+        #                 fileName = '%s-%s.png' % (getattr(pokemon, 'pokemon_species_id'), info[2])
+        #         else:
+        #             fileName = '%s.png' % getattr(pokemon, 'pokemon_species_id')
+        #
+        #         pokeSprites = 'pokemon/{0}'
+        #
+        #         sprites = {
+        #             'front_default'      : filePathOrNone(pokeSprites.format(fileName)),
+        #             'front_shiny'        : filePathOrNone(pokeSprites.format('shiny/'+fileName)),
+        #             'back_default'       : filePathOrNone(pokeSprites.format('back/'+fileName)),
+        #             'back_shiny'         : filePathOrNone(pokeSprites.format('back/shiny/'+fileName)),
+        #         }
+        #
+        #         imageModel = PokemonFormSprites (
+        #             id = index,
+        #             pokemon_form = PokemonForm.objects.get(pk=int(info[0])),
+        #             sprites = json.dumps(sprites)
+        #         )
+        #         imageModel.save()
+        #
+        #
+        # clear_table(PokemonFormName)
+        # data = load_data('pokemon_form_names.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonFormName (
+        #             pokemon_form = PokemonForm.objects.get(pk = int(info[0])),
+        #             language = Language.objects.get(pk = int(info[1])),
+        #             name = info[2],
+        #             pokemon_name = info[3]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonFormGeneration)
+        # data = load_data('pokemon_form_generations.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonFormGeneration (
+        #             pokemon_form = PokemonForm.objects.get(pk = int(info[0])),
+        #             generation = Generation.objects.get(pk = int(info[1])),
+        #             game_index = int(info[2])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonGameIndex)
+        # data = load_data('pokemon_game_indices.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonGameIndex (
+        #             pokemon = Pokemon.objects.get(pk = int(info[0])),
+        #             version = Version.objects.get(pk = int(info[1])),
+        #             game_index = int(info[2])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonHabitatName)
+        # data = load_data('pokemon_habitat_names.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonHabitatName (
+        #             pokemon_habitat = PokemonHabitat.objects.get(pk = int(info[0])),
+        #             language = Language.objects.get(pk = int(info[1])),
+        #             name = info[2]
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonItem)
+        # data = load_data('pokemon_items.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonItem (
+        #             pokemon = Pokemon.objects.get(pk = int(info[0])),
+        #             version = Version.objects.get(pk = int(info[1])),
+        #             item = Item.objects.get(pk = int(info[2])),
+        #             rarity = int(info[3])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonMove)
+        # data = load_data('pokemon_moves.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonMove (
+        #             pokemon = Pokemon.objects.get(pk = int(info[0])),
+        #             version_group = VersionGroup.objects.get(pk = int(info[1])),
+        #             move = Move.objects.get(pk = int(info[2])),
+        #             move_learn_method = MoveLearnMethod.objects.get(pk = int(info[3])),
+        #             level = int(info[4]),
+        #             order = int(info[5]) if info[5] != '' else None,
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonStat)
+        # data = load_data('pokemon_stats.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonStat (
+        #             pokemon = Pokemon.objects.get(pk = int(info[0])),
+        #             stat = Stat.objects.get(pk = int(info[1])),
+        #             base_stat = int(info[2]),
+        #             effort = int(info[3])
+        #         )
+        #         model.save()
+        #
+        #
+        # clear_table(PokemonType)
+        # data = load_data('pokemon_types.csv')
+        #
+        # for index, info in enumerate(data):
+        #     if index > 0:
+        #
+        #         model = PokemonType (
+        #             pokemon = Pokemon.objects.get(pk = int(info[0])),
+        #             type = Type.objects.get(pk = int(info[1])),
+        #             slot = int(info[2])
+        #         )
+        #         model.save()
 
 
 
@@ -2423,31 +2430,31 @@ class Command(BaseCommand):
                 )
                 model.save()
 
-    build_languages()
-    build_regions()
-    build_generations()
-    build_versions()
-    build_damage_classes()
-    build_stats()
-    build_abilities()
-    build_characteristics()
-    build_egg_groups()
-    build_growth_rates()
-    build_items()
-    build_types()
-    build_contests()
-    build_moves()
-    build_berries()
-    build_natures()
-    build_genders()
-    build_experiences()
-    build_machines()
-    build_evolutions()
-    build_pokedexes()
-    build_locations()
+    # build_languages()
+    # build_regions()
+    # build_generations()
+    # build_versions()
+    # build_damage_classes()
+    # build_stats()
+    # build_abilities()
+    # build_characteristics()
+    # build_egg_groups()
+    # build_growth_rates()
+    # build_items()
+    # build_types()
+    # build_contests()
+    # build_moves()
+    # build_berries()
+    # build_natures()
+    # build_genders()
+    # build_experiences()
+    # build_machines()
+    # build_evolutions()
+    # build_pokedexes()
+    # build_locations()
     build_pokemons()
-    build_encounters()
-    build_pal_parks()
+    # build_encounters()
+    # build_pal_parks()
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS("Ready!"))

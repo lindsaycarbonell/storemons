@@ -1,0 +1,8 @@
+.dex-box{
+  width:30vw;
+  height:30%;
+}
+
+.dex-name{
+  text-transform: capitalize;
+}

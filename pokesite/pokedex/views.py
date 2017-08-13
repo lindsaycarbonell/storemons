@@ -8,15 +8,12 @@ from .models import *
 
 def index(request):
     all_pokemon = Pokemon.objects.order_by('name')
-    context = {
-        'all_pokemon': all_pokemon,
-    }
-    return render(request, 'pokedex/index.html', context)
-    # output = ', '.join([p.name for p in all_pokemon])
-    # return HttpResponse(output)
+    # pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
+    sprites = PokemonSprites.objects.all()
+    return render(request, 'pokedex/index.html', {'all_pokemon': all_pokemon, 'sprites': sprites, 'staticstr': 'static/pokedex/'})
 
 def detail(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
     species = get_object_or_404(PokemonSpecies, pk=pokemon_id)
     moves = Move.objects.filter(pokemonmove__pokemon=pokemon)
-    return render(request, 'pokedex/detail.html', {'pokemon': pokemon, 'species': species, 'moves': moves})
+    return render(request, 'pokedex/detail.html', {'pokemon': pokemon, 'species': species, 'moves': moves, 'sprites': sprites})
