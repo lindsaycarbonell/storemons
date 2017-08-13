@@ -1,5 +1,7 @@
 from django import template
 register = template.Library()
+from pokedex.models import *
+from django.shortcuts import get_object_or_404
 
 import json
 
@@ -16,8 +18,15 @@ def get_front_sprite(value):
     str_json = json.loads(value)
     return str_json['front_default']
 
-# @register.filter
-# def get_pokemon_sprite(value):
-#     pokemon_id = value.pokemon.id
-#     pokemon = get_object_or_404(Pokemon, pk=pokemon_id)
-#     return PokemonSprites.objects.filter(pokemon.name = value.pokemon.name)
+@register.filter
+def get_type1(value):
+    type1 = PokemonType.objects.get(pokemon=value,slot=1)
+    return type1.type.name
+
+@register.filter
+def get_type2(value):
+    try:
+        type2 = PokemonType.objects.get(pokemon=value, slot=2)
+        return type2.type.name
+    except PokemonType.DoesNotExist:
+        return False

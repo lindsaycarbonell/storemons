@@ -8,22 +8,42 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'pokedex/style.css' %}" />
 
-<h1>Pokédex</h1>
+<h1 class="ribbon">Pokédex</h1>
 
 
+
+<div class="container">
+
+<div id="intro">
+  <p>Welcome to the Pokédex app! Below you can view your caught Pokémon stats, and see the stats for other Pokémon that can be caught in Red, Blue and Yellow.</p>
+
+  <p>Notes: Pokédex numbers based on National Pokédex. Pokemon gifs are from Gen V, and pngs in the info boxes are from Gen VI. Movesets are limited to moves available in Gen I. Evolutionary chains are based on Gen I/II. Displaying National Pokédex from 1 to 151. Due to unique nature of stats in Gen I, stats are based on Gen II.</p>
+</div>
 
 {% if all_pokemon %}
     {% for p in all_pokemon %}
       {% if forloop.first %}<div class="row">{% endif %}
-        <div class="dex-box col-lg-4 col-md-6 col-sm-12">
+        <div class="dex-box col-lg-3 col-md-6 col-sm-12">
           <a class="dex-name" href="{% url 'detail' p.id %}">{{ p.name }}</a>
-          <img src="{{STATIC_PREFIX}}pokedex/data/sprites/pokemon/{{p.id}}.png" />
+          <div class="type {{ p|get_type1 }}">
+            <p>{{ p|get_type1 }}</p>
+          </div>
+          {% if p|get_type2 %}
+          <div class="type {{ p|get_type2 }}">
+            <p>{{ p|get_type2 }}</p>
+          </div>
+          {% endif %}
+          <img class="dex-sprite {% if p.id|divisibleby:7 %} grayscale {% endif %}}" src="{{STATIC_PREFIX}}pokedex/data/sprites/pokemon/{{p.id}}.png" />
         </div>
-      {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+      {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
       {% if forloop.last %}</div>{% endif %}
     {% endfor %}
+
+</div><!--/.container-->
 
 {% else %}
   <p>No pokemon available.</p>
 
 {% endif %}
+
+<footer></footer>
