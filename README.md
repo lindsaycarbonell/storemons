@@ -37,7 +37,7 @@ _A page to decide which Pokémon would win in a battle_
   - High Special Defense: Special Wall
      - Both: Mixed Wall
 - Then the comparison will begin.
-  - Check the stats_sum of both Pokémon
+  - Check the stats_sum of both Pokémon
   - If stats_sum differs by 200 or more, then the larger stat wins.
     - Message: “{Pokemon A} wins by sheer power. Try comparing two Pokémon with similar stats.”
   - Otherwise, check individual stats:
@@ -45,7 +45,7 @@ _A page to decide which Pokémon would win in a battle_
     - Special Attack - > Special Defense
     - Speed < - > Speed
     - HP < - > HP
-  - Print where each Pokémon wins each comparison, and by how much.
+  - Print where each Pokémon wins each comparison, and by how much.
 
 ### Other
 - Set of models for storing personal Pokémon attributes, including model methods for "evolve", "release", "transfer"
