@@ -57,6 +57,12 @@ h1.ribbon{
   border-right-color: transparent;
 }
 
+.indiv-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /**** INDEX DEX STYLES ***/
 
 .dex-box{

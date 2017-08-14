@@ -1,9 +1,23 @@
-<p>This is the detail page for {{ pokemon }}</p>
+{% extends "pokedex/base.html" %}
 
-<p>Learnable moves:</p>
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+{% load pokedex_extras %}
 
-<ul>
-  {% for move in moves %}
-    <li>{{ move.name }}</li>
-  {% endfor %}
-</ul>
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 indiv-wrapper">
+      <h1>{{ pokemon|title }}</h1>
+      {% if pokemon %}
+          <img class="dex-sprite {% if false %} grayscale {% endif %}" src="{{STATIC_PREFIX}}pokedex/data/sprites/pokemon/{{pokemon.id}}.png" />
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
