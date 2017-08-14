@@ -39,11 +39,15 @@
 <div class="row">
   <div class="col-lg-12 poke-select-wrapper">
 
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    {# <form action="{% url 'compare' pokemon1.id pokemon2.id %}" method="POST">#}
     <form>
+      {# {% csrf_token %}#}
       <label>Select two Pokémon to compare:</label>
       <select class="form-control" name="pokemon1">
         {% for p in all_pokemon %}
-        <option value="{{ p.name }}" {% if forloop.first %} selected {% else %}{% endif %}>{{p.name|title}}</option>
+        <option name="pokemon1" id="{{ p.name }}" value="{{ p.name }}" {% if forloop.first %} selected {% else %}{% endif %}>{{p.name|title}}</option>
         {% endfor %}
       </select>
 
@@ -51,7 +55,7 @@
 
       <select class="form-control" name="pokemon2">
         {% for p in all_pokemon %}
-        <option value="{{ p.name }}">{{p.name|title}}</option>
+        <option name="pokemon2" id="{{ p.name }}" value="{{ p.name }}">{{p.name|title}}</option>
         {% endfor %}
       </select>
 
@@ -64,7 +68,7 @@
 {% if all_pokemon %}
     {% for p in all_pokemon %}
 
-      {% if forloop.first %}<div class="row">{% endif %}
+      {% if forloop.first %}<div class="row grid-row">{% endif %}
         <div class="dex-box col-lg-3 col-md-6 col-sm-12">
           <a class="dex-name" href="{% url 'detail' p.id %}">{{ p.name }}</a>
           <div class="type-wrapper">
@@ -83,7 +87,7 @@
           <img class="dex-sprite {% if false %} grayscale {% endif %}" src="{{STATIC_PREFIX}}pokedex/data/sprites/pokemon/{{p.id}}.png" />
           {% endif %}
         </div>
-      {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+      {% if forloop.counter|divisibleby:4 %}</div><div class="row grid-row">{% endif %}
       {% if forloop.last %}</div>{% endif %}
     {% endfor %}
 

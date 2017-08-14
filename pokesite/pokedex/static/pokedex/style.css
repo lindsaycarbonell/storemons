@@ -5,6 +5,10 @@ body{
   background-color: #79c9f9;
 }
 
+.grid-row{
+  margin-bottom:50px;
+}
+
 .grayscale{
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
@@ -62,7 +66,7 @@ h1.ribbon{
 }
 
 .dex-box:hover{
-  border:1px solid #ba89b6;
+  /*border:1px solid #ba89b6;*/
 }
 
 .dex-name{
