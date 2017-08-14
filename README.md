@@ -51,6 +51,9 @@ _A page to decide which Pokémon would win in a battle_
 - Set of models for storing personal Pokémon attributes, including model methods for "evolve", "release", "transfer"
 - A section to keep track of obtained mega evolution stones (basically equivalent to owning a -Mega Pokémon)
 - Set of models for storing personal Pokémon attributes
+- /pokedex filters:
+  -  gif_mode to show all 'mons as cute gifs
+  -  show or hide caught 'mons
 
 ## Libraries and Outside Code
 - [PokéAPI](https://github.com/PokeAPI/pokeapi): all base models and data are from the PokéAPI repository, without which there would be far less data I would be willing to put into this application myself.
