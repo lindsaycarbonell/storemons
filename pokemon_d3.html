@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    svg { border: 1px solid black }
+   .delay{
+     fill:#551A8B;
+     /*stroke:black;*/
+   }
+  </style>
+</head>
+
+<body>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="http://cdn.rawgit.com/gka/d3-jetpack/master/build/d3-jetpack.js" charset="utf-8"></script>
+  <script>
+    d3.csv('pokemon.csv', function(data){
+
+      selectedPokemon = 'Blissey'
+
+      data.forEach(function(d){
+        d.hp = parseInt(d.hp)
+      })
+
+      const max_hp = d3.max(data, function(d){
+        return parseInt(d.hp);
+      })
+
+      const nested = d3.nest()
+            .key(function(d){
+              return d.hp
+            })
+            .entries(data);
+
+      // debugger
+
+      const height = 20;
+      const width = 300;
+      const yScale = d3.scaleBand()
+                    .domain([0, max_hp])
+                    .range([0, height])
+      const xScale = d3.scaleLinear()
+                    .domain([0, max_hp])
+                    .range([0, width]);
+      const opacityColorScale = d3.scaleThreshold()
+                    .domain([0, max_hp])
+                    .range([0, width])
+      const conventions = d3.conventions({
+        y: yScale,
+        x: xScale,
+        width: width,
+        height: height
+        // margin: {left:200}
+      });
+
+      const svg = conventions.svg;
+
+      // conventions.drawAxis();
+
+      const hpLine = svg.append('g')
+
+      hpLine.append('rect')
+            .attr('width', max_hp)
+            .attr('height', 5);
+
+      const hpTicks = hpLine.appendMany(nested, 'g.hp');
+
+      hpTicks.append('line.hp')
+          .attr('y2', yScale.bandwidth() * .5)
+          .attr('stroke', 'red')
+          .translate(function(d){return [d.key,0] })
+
+      debugger
+
+      hpLine.append('line.selected_mon')
+      .attr('x2', 3)
+      .attr('stroke', 'blue')
+      .translate(function(d){
+        console.log(d);
+        if (d.name == 'Blissey') {
+          return [d.hp,0];
+        }
+      })
+
+
+
+      // const hps = conventions.svg.appendMany(nested, 'g.hp');
+      //
+      // hps.append('rect').attr('width', function(d){ return d.key }).attr('height', 2).style('fill', function(d){
+      //   return parseInt(d.key);
+      // });
+      //
+      // hps.translate(function(d){
+      //   const y = yScale(20);
+      //   return [20,0];
+      // });
+
+      // d3.select(this).appendMany(hps, 'rect.hp')
+      //   .attr('width', function(d){
+      //     const width = xScale(parseInt(d.hp));
+      //
+      //     return width;
+      //   })
+      //   .attr('height', yScale.bandwidth())
+      //   .translate(function(d){
+      //     const current_width = total_width;
+      //     total_width += parseInt(d3.select(this).attr('width')) +1;
+      //     return [current_width, 0];
+      //   })
+
+    });
+  </script>
+
+</body>
+</html>
