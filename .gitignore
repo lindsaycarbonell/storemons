@@ -5,6 +5,7 @@
 *.pyc
 env/
 .vscode/
+**/db.sqlite3
 
 ### Django ###
 *.log
